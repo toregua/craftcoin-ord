@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+set -euxo pipefail
+
+# install homebrew
+if ! command -v brew; then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+# check homebrew
+brew --version
+
+# install craftcoin
+if ! command -v craftcoind; then
+  brew install craftcoin
+fi
+
+# check craftcoind
+craftcoind --version
+
+# write config
+if [[ ! -f ~/Library/Application\ Support/Craftcoin/craftcoin.conf ]]; then
+  printf 'txindex=1\nsignet=1\n' > ~/Library/Application\ Support/Craftcoin/craftcoin.conf
+fi
+
+# start craftcoind
+if ! craftcoin-cli getblockchaininfo; then
+  brew services start craftcoin
+fi
+
+# check craftcoind
+craftcoin-cli getblockchaininfo | grep signet
+
+# install ord
+if ! command -v ord; then
+  curl --proto '=https' --tlsv1.2 -fsLS https://raw.githubusercontent.com/toregua/ord-craftcoin/master/install.sh?token=GHSAT0AAAAAAB657S54D565E7TB4B3NBCE4Y736PRQ | bash -s
+fi
+
+# check ord
+ord --version

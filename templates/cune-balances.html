@@ -1,0 +1,26 @@
+<h1>Cune Balances</h1>
+<table>
+  <tr>
+    <th>cune</th>
+    <th>balances</th>
+  </tr>
+  %% for (cune, balances) in &self.balances {
+  <tr>
+    <td><a href=/cune/{{ cune }}>{{ cune }}</a></td>
+    <td>
+      <table>
+        %% for (outpoint, balance) in balances {
+        <tr>
+          <td class=monospace>
+            <a href=/output/{{ outpoint }}>{{ outpoint }}</a>
+          </td>
+          <td class=monospace>
+            {{ balance }}
+          </td>
+        </tr>
+        %% }
+      </table>
+    </td>
+  </tr>
+  %% }
+</table>
