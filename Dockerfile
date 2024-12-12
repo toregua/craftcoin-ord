@@ -6,11 +6,11 @@ RUN apt-get update && \
 
 RUN mkdir /app
 
-COPY ./*.json /app
-COPY ./*.toml /app
-COPY ./*.sh /app
+COPY ./*.json /app/
+COPY ./*.toml /app/
+COPY ./*.sh /app/
 COPY ./LICENSE /app
-COPY ./*.svg /app
+COPY ./*.svg /app/
 COPY ./Cargo.lock /app
 
 RUN mkdir -p /app/templates
